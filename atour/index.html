@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>亚朵酒店 GEO 投放说服逻辑</title>
+  <style>
+    :root{
+      --coffee:#2f241d; --brown:#6f4f38; --tan:#b58a5a; --paper:#fffaf2;
+      --cream:#f7efe3; --sage:#4f7663; --green:#245f4b; --line:#e5d8c7;
+      --muted:#73675c; --red:#9f3d2e; --shadow:0 20px 54px rgba(47,36,29,.12);
+    }
+    *{box-sizing:border-box}
+    html{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;color:var(--coffee);background:var(--cream)}
+    body{margin:0;background:
+      radial-gradient(circle at 8% 4%,rgba(181,138,90,.18),transparent 28%),
+      radial-gradient(circle at 88% 10%,rgba(79,118,99,.16),transparent 26%),
+      linear-gradient(180deg,#fbf7ef,#f4eadc)}
+    .page{width:min(1260px,calc(100vw - 36px));margin:0 auto;padding:38px 0 58px}
+    .card{background:rgba(255,250,242,.96);border:1px solid var(--line);border-radius:30px;box-shadow:var(--shadow)}
+    .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:22px;margin-bottom:22px}
+    .intro{padding:44px;position:relative;overflow:hidden;background:linear-gradient(135deg,#fffaf2,#f5ead9)}
+    .intro:after{content:"";position:absolute;right:-120px;top:-130px;width:390px;height:390px;border-radius:50%;background:radial-gradient(circle,rgba(181,138,90,.30),rgba(79,118,99,.16),transparent 72%)}
+    .eyebrow{display:inline-flex;align-items:center;gap:9px;padding:8px 14px;border-radius:999px;background:#efe2d0;color:var(--brown);font-weight:900;font-size:14px;margin-bottom:20px}
+    .eyebrow:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--tan);box-shadow:15px 0 0 var(--sage),30px 0 0 var(--brown)}
+    h1{position:relative;z-index:1;margin:0 0 20px;font-size:58px;line-height:1.04;letter-spacing:0;color:var(--coffee)}
+    .lead{position:relative;z-index:1;margin:0;color:var(--muted);font-size:21px;line-height:1.72}
+    .right{padding:30px}
+    h2{margin:0 0 18px;font-size:30px;line-height:1.22;color:var(--coffee)}
+    h3{margin:0 0 10px;font-size:21px;color:var(--coffee)}
+    p{margin:0;color:var(--muted);line-height:1.62}
+    .decision{display:grid;gap:12px}
+    .decision-row{display:grid;grid-template-columns:38px 1fr;gap:13px;align-items:start;padding:15px;border-radius:18px;background:#fffdf8;border:1px solid #ebdfcf}
+    .decision-row b{display:grid;place-items:center;width:38px;height:38px;border-radius:14px;background:#efe2d0;color:var(--brown)}
+    .decision-row span{color:var(--muted);line-height:1.55;font-size:16px}
+    .answer{margin-top:16px;padding:18px;border-radius:20px;background:#edf6ef;border:1px solid #bdd7c8;color:var(--green);font-weight:900;line-height:1.58}
+    section{padding:30px;margin-top:22px}
+    .section-head{display:flex;justify-content:space-between;gap:24px;align-items:flex-end;margin-bottom:22px}
+    .section-head p{max-width:700px;font-size:16px}
+    .spend-map{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .spend{background:#fffdf8;border:1px solid var(--line);border-radius:24px;padding:22px;min-height:246px}
+    .spend .pct{font-size:36px;font-weight:950;color:var(--c);margin-bottom:10px}
+    .spend h3{font-size:20px}
+    .spend p{font-size:15px}
+    .questions{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .qcard{background:#fffdf8;border:1px solid var(--line);border-radius:24px;padding:22px}
+    .qcard h3{display:flex;align-items:center;gap:10px}
+    .pill{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:12px;background:var(--soft);color:var(--c);font-size:14px}
+    .qcard ul{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:9px}
+    .qcard li{font-size:15px;color:var(--muted);line-height:1.45;padding-left:16px;position:relative}
+    .qcard li:before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--c)}
+    .proof{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .proof-box{background:#fffdf8;border:1px solid var(--line);border-radius:24px;padding:24px}
+    .metric{display:grid;grid-template-columns:158px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid #efe5d7}
+    .metric:last-child{border-bottom:0}
+    .metric b{font-size:16px;color:var(--coffee)}
+    .metric span{color:var(--muted);font-size:15px;line-height:1.45}
+    .content-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .content{background:#fffdf8;border:1px solid var(--line);border-radius:24px;padding:22px}
+    .content p{font-size:15px}
+    .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+    .step{position:relative;background:#fffdf8;border:1px solid var(--line);border-radius:22px;padding:20px 16px;min-height:184px}
+    .step:not(:last-child):after{content:"→";position:absolute;right:-18px;top:78px;color:#a99682;font-weight:900;font-size:26px;z-index:3}
+    .icon{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:var(--c);color:#fff;font-weight:900;margin-bottom:14px}
+    .step h3{font-size:18px}.step p{font-size:14px}
+    .close{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .dark{background:var(--coffee);border-color:var(--coffee);color:#fff}
+    .dark h2,.dark h3{color:#fff}.dark p{color:#eadfce;font-size:18px}
+    .deliver{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .deliver span{padding:12px 14px;border:1px solid #ebdfcf;border-radius:14px;background:#fffdf8;color:var(--muted);font-size:15px}
+    @media(max-width:980px){.hero,.proof,.close{grid-template-columns:1fr}.spend-map,.questions,.content-grid,.flow{grid-template-columns:1fr}.step:not(:last-child):after{content:"↓";right:24px;top:auto;bottom:-25px}h1{font-size:40px}.section-head{display:block}.section-head p{margin-top:10px}.page{width:min(100vw - 24px,1260px)}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="hero">
+      <section class="card intro">
+        <div class="eyebrow">亚朵品牌部 GEO 投放决策页</div>
+        <h1>把亚朵放进用户“问 AI 订酒店”的第一答案里。</h1>
+        <p class="lead">对亚朵来说，GEO 不是多发几篇稿，而是抢占用户订酒店前的 AI 决策入口：商务出差、深睡体验、亲子旅行、城市商圈、竞品比较、会员权益。</p>
+      </section>
+      <section class="card right">
+        <h2>品牌部为什么值得花这笔钱？</h2>
+        <div class="decision">
+          <div class="decision-row"><b>1</b><span>用户还没打开携程/美团前，已经在 AI 里问“住哪家更好”。</span></div>
+          <div class="decision-row"><b>2</b><span>AI 如果先推荐全季、桔子、欢朋，亚朵就会在心智入口被截流。</span></div>
+          <div class="decision-row"><b>3</b><span>亚朵的“深睡、人文、生活方式、服务稳定”需要被 AI 准确理解并引用。</span></div>
+        </div>
+        <div class="answer">GEO 的预算价值：让亚朵在 AI 答案里更常出现、排名更靠前、理由更准确、信源更可信。</div>
+      </section>
+    </div>
+
+    <section class="card">
+      <div class="section-head">
+        <h2>预算应该花在哪？</h2>
+        <p>不是平均铺内容，而是按“用户决策影响 × 亚朵优势匹配 × AI 推荐触发概率”分配预算。</p>
+      </div>
+      <div class="spend-map">
+        <div class="spend" style="--c:var(--brown)"><div class="pct">35%</div><h3>品类与场景占位</h3><p>抢“商务出差酒店、睡眠好的酒店、中高端酒店推荐、城市商圈住宿”等高决策问题，让亚朵进入推荐名单。</p></div>
+        <div class="spend" style="--c:var(--green)"><div class="pct">30%</div><h3>信源建设</h3><p>补官网、OTA、点评、媒体、问答、小红书/公众号测评，让 AI 有足够可信内容引用亚朵。</p></div>
+        <div class="spend" style="--c:var(--tan)"><div class="pct">20%</div><h3>竞品对比</h3><p>围绕亚朵 vs 全季、桔子、欢朋、汉庭，建立“为什么选亚朵”的场景化理由。</p></div>
+        <div class="spend" style="--c:var(--red)"><div class="pct">15%</div><h3>舆情防御</h3><p>提前处理卫生、隔音、价格、服务稳定、会员权益等可能影响 AI 回答的风险问题。</p></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <h2>第一批就该监测和优化的问题</h2>
+        <p>这些问题不是品牌自嗨，而是用户真实决策问题。谁被 AI 推荐，谁就更早进入候选名单。</p>
+      </div>
+      <div class="questions">
+        <div class="qcard" style="--c:var(--brown);--soft:#efe2d0"><h3><span class="pill">商</span>商务出差</h3><ul><li>上海虹桥附近适合商务出差的酒店有哪些？</li><li>经常出差的人更推荐亚朵还是全季？</li><li>商务酒店里哪个品牌服务更稳定？</li></ul></div>
+        <div class="qcard" style="--c:var(--green);--soft:#edf6ef"><h3><span class="pill">眠</span>深睡体验</h3><ul><li>睡眠不好的人出差住什么酒店比较合适？</li><li>哪些酒店床品和枕头比较舒服？</li><li>亚朵酒店睡眠体验怎么样？</li></ul></div>
+        <div class="qcard" style="--c:var(--tan);--soft:#fff6e6"><h3><span class="pill">比</span>竞品选择</h3><ul><li>亚朵和全季酒店哪个更好？</li><li>亚朵和希尔顿欢朋哪个更适合商务？</li><li>中端酒店品牌亚朵、全季、汉庭怎么选？</li></ul></div>
+        <div class="qcard" style="--c:var(--sage);--soft:#eef5f1"><h3><span class="pill">城</span>城市商圈</h3><ul><li>杭州西湖附近住哪里比较方便？</li><li>北京国贸附近适合出差的酒店推荐？</li><li>成都春熙路附近哪家酒店体验好？</li></ul></div>
+        <div class="qcard" style="--c:#7a5b42;--soft:#f3eadf"><h3><span class="pill">旅</span>旅行生活方式</h3><ul><li>带孩子出去玩住亚朵合适吗？</li><li>女生一个人旅行住什么酒店比较安全？</li><li>周末短途旅行住什么酒店舒服？</li></ul></div>
+        <div class="qcard" style="--c:var(--red);--soft:#fff1ed"><h3><span class="pill">险</span>风险问题</h3><ul><li>亚朵酒店卫生怎么样？</li><li>亚朵酒店隔音好吗？</li><li>为什么有人说亚朵越来越贵？</li></ul></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <h2>内容卖点怎么打？</h2>
+        <p>品牌部不是“泛发稿”，而是把亚朵的品牌资产拆成 AI 能引用的答案素材。</p>
+      </div>
+      <div class="content-grid">
+        <div class="content"><h3 style="color:var(--green)">深睡卖点</h3><p>围绕床品、枕头、安静度、睡眠体验、深睡客房等内容，承接“睡眠好的酒店”问题。</p></div>
+        <div class="content"><h3 style="color:var(--brown)">商务卖点</h3><p>围绕位置便利、服务稳定、早餐、洗衣、办公友好、会员权益，承接商务出差问题。</p></div>
+        <div class="content"><h3 style="color:var(--tan)">人文生活方式</h3><p>围绕阅读、空间、审美、旅行松弛感和亚朵星球产品，建立不同于传统酒店的心智。</p></div>
+        <div class="content"><h3 style="color:var(--sage)">城市商圈</h3><p>为重点城市和商圈做“住哪里方便”的本地化内容，提高门店层面的 AI 命中率。</p></div>
+        <div class="content"><h3 style="color:#7a5b42">竞品对比</h3><p>用第三方测评和用户体验解释“亚朵 vs 全季/欢朋/桔子”适合什么人群和场景。</p></div>
+        <div class="content"><h3 style="color:var(--red)">风险解释</h3><p>提前准备卫生、隔音、价格、服务、会员权益 FAQ，降低 AI 回答里的负面不确定性。</p></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <h2>具体怎么执行？</h2>
+        <p>用“问题-信源-内容-复盘”闭环，让每一笔预算都对应一个 AI 答案缺口。</p>
+      </div>
+      <div class="flow">
+        <div class="step" style="--c:var(--brown)"><div class="icon">问</div><h3>问题池</h3><p>按商务、睡眠、竞品、城市、旅行、舆情建立监测问题。</p></div>
+        <div class="step" style="--c:var(--tan)"><div class="icon">筛</div><h3>热度筛选</h3><p>结合百度、微信、小红书、OTA 搜索和点评热度确定优先级。</p></div>
+        <div class="step" style="--c:var(--green)"><div class="icon">测</div><h3>AI 监测</h3><p>看亚朵是否出现、排第几、竞品是否领先、回答是否准确。</p></div>
+        <div class="step" style="--c:var(--sage)"><div class="icon">源</div><h3>信源反推</h3><p>分析 AI 引用官网、OTA、点评、媒体、问答、小红书哪些内容。</p></div>
+        <div class="step" style="--c:var(--red)"><div class="icon">投</div><h3>内容投放</h3><p>补官方解释、第三方测评、用户体验、城市攻略和风险 FAQ。</p></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <h2>怎么证明钱花得有效？</h2>
+        <p>品牌部看的是可量化变化：AI 有没有更常推荐亚朵，推荐理由有没有更接近品牌定位。</p>
+      </div>
+      <div class="proof">
+        <div class="proof-box">
+          <h3>可见度增长</h3>
+          <div class="metric"><b>品牌提及率</b><span>核心问题下，AI 回答是否出现亚朵。</span></div>
+          <div class="metric"><b>Top3 占比</b><span>亚朵是否进入用户最容易看到的推荐位置。</span></div>
+          <div class="metric"><b>竞品差距</b><span>和全季、桔子、汉庭、欢朋等品牌的提及率差距是否缩小。</span></div>
+          <div class="metric"><b>回答准确度</b><span>AI 是否能说清亚朵的深睡、人文、生活方式、服务优势。</span></div>
+        </div>
+        <div class="proof-box">
+          <h3>投放有效性</h3>
+          <div class="metric"><b>信源覆盖</b><span>AI 是否引用亚朵官网、OTA 评价、媒体测评、社媒内容。</span></div>
+          <div class="metric"><b>内容缺口</b><span>哪些场景问题仍缺权威说明或第三方背书。</span></div>
+          <div class="metric"><b>风险下降</b><span>卫生、隔音、价格、服务等负面问题是否被更好解释。</span></div>
+          <div class="metric"><b>月度复盘</b><span>每月更新问题、排名、信源和内容投放建议。</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="close">
+      <div class="card dark">
+        <h2>给亚朵品牌部的结论</h2>
+        <p>GEO 不是替代 OTA，而是在用户打开 OTA 之前，先让 AI 推荐亚朵、解释亚朵，并把亚朵放进用户的候选名单。</p>
+      </div>
+      <div class="card">
+        <h2>交付物</h2>
+        <div class="deliver">
+          <span>亚朵 AI 问题池</span><span>热度筛选表</span><span>可见度监测报告</span><span>竞品对比报告</span><span>信源分析报告</span><span>舆情风险预警</span><span>内容投放建议</span><span>月度复盘报告</span>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
