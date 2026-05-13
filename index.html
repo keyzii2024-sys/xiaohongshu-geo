@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GEO 优化服务方法论</title>
+  <style>
+    :root {
+      --ink: #14213d;
+      --muted: #5d6675;
+      --line: #dce4f0;
+      --blue: #246bfe;
+      --cyan: #0799b8;
+      --green: #119b73;
+      --orange: #e88b10;
+      --red: #df3f49;
+      --purple: #7446d9;
+      --paper: #ffffff;
+      --bg: #f4f7fb;
+      --shadow: 0 18px 60px rgba(20, 33, 61, .10);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 12% 6%, rgba(36, 107, 254, .12), transparent 28%),
+        radial-gradient(circle at 90% 16%, rgba(17, 155, 115, .12), transparent 26%),
+        linear-gradient(180deg, #f8fbff 0%, #f4f7fb 100%);
+    }
+
+    .page {
+      width: min(1180px, calc(100vw - 40px));
+      margin: 0 auto;
+      padding: 54px 0 70px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(220, 228, 240, .9);
+      border-radius: 28px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.94), rgba(255,255,255,.80)),
+        linear-gradient(135deg, rgba(36,107,254,.18), rgba(17,155,115,.14));
+      box-shadow: var(--shadow);
+      padding: 44px 48px;
+    }
+
+    .hero:after {
+      content: "";
+      position: absolute;
+      right: -120px;
+      top: -160px;
+      width: 440px;
+      height: 440px;
+      border-radius: 50%;
+      background: conic-gradient(from 180deg, rgba(36,107,254,.22), rgba(17,155,115,.18), rgba(232,139,16,.16), rgba(36,107,254,.22));
+      filter: blur(2px);
+      opacity: .65;
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--blue);
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .kicker:before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 18px 0 0 var(--green), 36px 0 0 var(--orange);
+    }
+
+    h1 {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      font-size: clamp(46px, 6vw, 74px);
+      line-height: 1.02;
+      letter-spacing: 0;
+      max-width: 850px;
+    }
+
+    .hero p {
+      position: relative;
+      z-index: 1;
+      margin: 24px 0 0;
+      max-width: 880px;
+      color: var(--muted);
+      font-size: 22px;
+      line-height: 1.65;
+    }
+
+    .weight-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 34px;
+      max-width: 880px;
+    }
+
+    .weight {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,.72);
+      padding: 18px 20px;
+    }
+
+    .weight b {
+      display: block;
+      font-size: 30px;
+      margin-top: 8px;
+    }
+
+    .weight span {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    section {
+      margin-top: 26px;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 14px 42px rgba(20, 33, 61, .06);
+      padding: 34px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 26px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 31px;
+      line-height: 1.2;
+    }
+
+    .section-title p {
+      margin: 0;
+      max-width: 610px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .step {
+      min-height: 250px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 24px;
+      background: linear-gradient(180deg, #fff, #fbfdff);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .step:before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 6px;
+      background: var(--accent);
+    }
+
+    .num {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      color: var(--accent);
+      background: var(--soft);
+      font-weight: 800;
+      font-size: 20px;
+      margin-bottom: 18px;
+    }
+
+    .step h3 {
+      margin: 0 0 12px;
+      font-size: 22px;
+      line-height: 1.25;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.68;
+      font-size: 16px;
+    }
+
+    .blue { --accent: var(--blue); --soft: #edf3ff; }
+    .cyan { --accent: var(--cyan); --soft: #e8faff; }
+    .green { --accent: var(--green); --soft: #ebf8f3; }
+    .purple { --accent: var(--purple); --soft: #f2edff; }
+    .red { --accent: var(--red); --soft: #fff0f2; }
+    .orange { --accent: var(--orange); --soft: #fff5e7; }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 26px;
+      background: #fff;
+    }
+
+    .panel h3 {
+      margin: 0 0 18px;
+      font-size: 23px;
+    }
+
+    .tag-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .tag {
+      border: 1px solid #d7e2f6;
+      background: #f8fbff;
+      border-radius: 14px;
+      padding: 13px 15px;
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    .metric {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 14px;
+      align-items: center;
+      padding: 13px 0;
+      border-bottom: 1px solid #eef2f7;
+    }
+
+    .metric:last-child { border-bottom: 0; }
+
+    .metric b { font-size: 17px; }
+    .metric span { color: var(--muted); line-height: 1.45; }
+
+    .packages {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .package {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 26px;
+      background: #fff;
+      min-height: 322px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .package .label {
+      width: fit-content;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--soft);
+      font-size: 15px;
+      margin-bottom: 20px;
+    }
+
+    .package h3 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.28;
+    }
+
+    .price {
+      margin: 16px 0;
+      color: var(--accent);
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .package p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 16px;
+    }
+
+    .close {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .quote {
+      border-radius: 24px;
+      padding: 32px;
+      background: #14213d;
+      color: #fff;
+    }
+
+    .quote h2 { color: #fff; }
+    .quote p {
+      color: #dce6f4;
+      font-size: 19px;
+      line-height: 1.7;
+      margin: 18px 0 0;
+    }
+
+    .cycle {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: #fff;
+      padding: 28px;
+    }
+
+    .cycle-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 12px 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      flex: none;
+      background: var(--blue);
+    }
+
+    .arrow {
+      color: #9aa7b8;
+      font-weight: 800;
+      padding-left: 5px;
+    }
+
+    @media (max-width: 920px) {
+      .page { width: min(100vw - 24px, 1180px); padding: 20px 0 38px; }
+      .hero { padding: 30px 24px; }
+      .weight-grid, .flow, .packages, .two-col, .close { grid-template-columns: 1fr; }
+      .section-title { display: block; }
+      .section-title p { margin-top: 12px; }
+      section { padding: 24px; }
+      .tag-grid { grid-template-columns: 1fr; }
+      .metric { grid-template-columns: 1fr; gap: 4px; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .page { width: 1120px; padding: 0; }
+      section, .hero { box-shadow: none; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="kicker">GEO Growth System</div>
+      <h1>让品牌进入 AI 答案体系</h1>
+      <p>从用户真实问题出发，用热度数据筛选优化入口，再通过可见度监测与信源反推，指导内容投放、竞品压制与风险预警。</p>
+      <div class="weight-grid">
+        <div class="weight"><span>核心目标</span><b style="color:var(--blue)">可见度 40%</b></div>
+        <div class="weight"><span>增长抓手</span><b style="color:var(--green)">信源策略 40%</b></div>
+        <div class="weight"><span>防御价值</span><b style="color:var(--orange)">舆情预警 20%</b></div>
+      </div>
+    </header>
+
+    <section>
+      <div class="section-title">
+        <h2>六步增长闭环</h2>
+        <p>GEO 不是一次性内容投放，而是“问题定义、热度筛选、监测诊断、信源建设、风险预警、持续复盘”的系统工程。</p>
+      </div>
+      <div class="flow">
+        <article class="step blue">
+          <div class="num">01</div>
+          <h3>基于品牌定义问题池</h3>
+          <p>围绕品牌认知、品类需求、场景痛点、竞品比较、舆情风险五类问题，判断品牌应该出现在哪些用户提问里。</p>
+        </article>
+        <article class="step cyan">
+          <div class="num">02</div>
+          <h3>结合热度筛选问题</h3>
+          <p>用百度、微信、社媒、大搜等热度数据，将高频词与问题簇拟合，筛出高热度、高相关、AI 易推荐的问题。</p>
+        </article>
+        <article class="step green">
+          <div class="num">03</div>
+          <h3>AI 可见度与竞品监测</h3>
+          <p>监测品牌提及率、推荐排序、Top3 占比、回答倾向及竞品表现，建立当前 AI 答案基线。</p>
+        </article>
+        <article class="step purple">
+          <div class="num">04</div>
+          <h3>信源引用分析与反推</h3>
+          <p>分析 AI 回答引用的媒体、测评、问答、应用市场、社媒与官方内容，反推应补充的投放信源。</p>
+        </article>
+        <article class="step red">
+          <div class="num">05</div>
+          <h3>舆情风险预警</h3>
+          <p>识别品牌边界、内容质量、体验吐槽、版权合规、创作者收益等风险问题，提前布局解释口径。</p>
+        </article>
+        <article class="step orange">
+          <div class="num">06</div>
+          <h3>内容优化与月度复盘</h3>
+          <p>按问题缺口输出内容卖点、投放平台和复盘指标，持续优化提及率、排名、信源覆盖和负面风险。</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <h2>交付物与指标</h2>
+        <p>交付不止是报告，而是帮助客户看清问题、找到信源、落地投放、持续复盘。</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <h3>标准交付物</h3>
+          <div class="tag-grid">
+            <div class="tag">问题池</div>
+            <div class="tag">热度筛选表</div>
+            <div class="tag">可见度监测报告</div>
+            <div class="tag">竞品对比报告</div>
+            <div class="tag">信源分析报告</div>
+            <div class="tag">舆情预警表</div>
+            <div class="tag">内容投放建议</div>
+            <div class="tag">月度复盘报告</div>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>效果验证指标</h3>
+          <div class="metric"><b>品牌提及率</b><span>品牌是否出现在 AI 回答中。</span></div>
+          <div class="metric"><b>推荐排序 / Top3</b><span>是否进入核心答案位。</span></div>
+          <div class="metric"><b>竞品压制</b><span>与主要竞品的提及率、排序差距。</span></div>
+          <div class="metric"><b>信源覆盖</b><span>AI 是否引用品牌可控或友好信源。</span></div>
+          <div class="metric"><b>回答倾向</b><span>正面、中性、负面回答比例变化。</span></div>
+          <div class="metric"><b>风险占比</b><span>负面与舆情问题是否下降。</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <h2>三档服务方案</h2>
+        <p>根据客户品牌体量、预算和当前可见度基础，选择不同深度的服务周期。</p>
+      </div>
+      <div class="packages">
+        <article class="package blue">
+          <div class="label">基础版</div>
+          <h3>监测诊断</h3>
+          <div class="price">3 个月｜5 万以内</div>
+          <p>重点交付问题池、热度筛选、可见度监测和竞品诊断，帮助客户看清品牌在 AI 搜索中的当前位置。</p>
+        </article>
+        <article class="package green">
+          <div class="label">进阶版</div>
+          <h3>监测 + 信源优化</h3>
+          <div class="price">6 个月｜10-20 万</div>
+          <p>增加信源分析和内容投放建议，从“看见问题”进入“解决问题”，指导内容投到更可能被 AI 引用的地方。</p>
+        </article>
+        <article class="package orange">
+          <div class="label">旗舰版</div>
+          <h3>监测 + 信源优化 + 舆情预警 + 持续复盘</h3>
+          <div class="price">12 个月｜30 万+</div>
+          <p>完整覆盖监测、投放、风险预警和月度复盘，适合大品牌、竞争激烈或舆情敏感品牌。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="close">
+      <div class="quote">
+        <h2>最终价值</h2>
+        <p>帮助品牌回答三个问题：用户会在哪些真实问题里遇到品牌？AI 当前是否把品牌作为答案推荐出来？如果没有，品牌应该通过哪些信源和内容进入 AI 的答案体系？</p>
+      </div>
+      <div class="cycle">
+        <h2>方法闭环</h2>
+        <div class="cycle-row"><span class="dot"></span>问题定义 <span class="arrow">→</span> 热度筛选</div>
+        <div class="cycle-row"><span class="dot" style="background:var(--green)"></span>可见度监测 <span class="arrow">→</span> 竞品对比</div>
+        <div class="cycle-row"><span class="dot" style="background:var(--purple)"></span>信源反推 <span class="arrow">→</span> 内容投放</div>
+        <div class="cycle-row"><span class="dot" style="background:var(--orange)"></span>效果复盘 <span class="arrow">→</span> 持续优化</div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
