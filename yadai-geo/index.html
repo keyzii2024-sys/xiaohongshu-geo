@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>雅黛生物科技 GEO 全案</title>
+  <style>
+    :root{
+      --ink:#10212a;--deep:#093b3f;--green:#0b7f6c;--mint:#dff5ef;--blue:#235ee8;
+      --rose:#c0266d;--amber:#b7791f;--red:#b93822;--paper:#fbfffd;--bg:#eff7f4;
+      --line:#d8e8e2;--muted:#53676c;--sub:#42575e;--shadow:0 20px 54px rgba(9,59,63,.12);
+    }
+    *{box-sizing:border-box}
+    html{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;color:var(--ink);background:var(--bg)}
+    body{margin:0;background:
+      radial-gradient(circle at 8% 4%,rgba(11,127,108,.16),transparent 27%),
+      radial-gradient(circle at 90% 8%,rgba(192,38,109,.13),transparent 25%),
+      linear-gradient(180deg,#fbfffd,#eef7f4)}
+    .page{width:min(1260px,calc(100vw - 36px));margin:0 auto;padding:38px 0 58px}
+    .card{background:rgba(251,255,253,.96);border:1px solid var(--line);border-radius:30px;box-shadow:var(--shadow)}
+    .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:22px;margin-bottom:22px}
+    .intro{padding:44px;position:relative;overflow:hidden;background:linear-gradient(135deg,#fbfffd,#eefaf6)}
+    .intro:after{content:"";position:absolute;right:-120px;top:-130px;width:410px;height:410px;border-radius:50%;background:radial-gradient(circle,rgba(11,127,108,.24),rgba(35,94,232,.10),rgba(192,38,109,.08),transparent 72%)}
+    .eyebrow{display:inline-flex;align-items:center;gap:9px;padding:8px 14px;border-radius:999px;background:var(--mint);color:var(--deep);font-weight:900;font-size:14px;margin-bottom:20px}
+    .eyebrow:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:15px 0 0 var(--rose),30px 0 0 var(--blue)}
+    h1{position:relative;z-index:1;margin:0 0 20px;font-size:57px;line-height:1.04;letter-spacing:0;color:var(--deep)}
+    .lead{position:relative;z-index:1;margin:0;color:var(--sub);font-size:21px;line-height:1.72}
+    .right{padding:30px}
+    h2{margin:0 0 18px;font-size:30px;line-height:1.22;color:var(--deep)}
+    h3{margin:0 0 10px;font-size:21px;color:var(--ink)}
+    p{margin:0;color:var(--muted);line-height:1.62}
+    .decision{display:grid;gap:12px}
+    .decision-row{display:grid;grid-template-columns:38px 1fr;gap:13px;align-items:start;padding:15px;border-radius:18px;background:#fff;border:1px solid #e2eee9}
+    .decision-row b{display:grid;place-items:center;width:38px;height:38px;border-radius:14px;background:var(--mint);color:var(--deep)}
+    .decision-row span{color:var(--muted);line-height:1.55;font-size:16px}
+    .answer{margin-top:16px;padding:18px;border-radius:20px;background:#fdf2fa;border:1px solid #fbcfe8;color:#9d174d;font-weight:900;line-height:1.58}
+    section{padding:30px;margin-top:22px}
+    .section-head{display:flex;justify-content:space-between;gap:24px;align-items:flex-end;margin-bottom:22px}
+    .section-head p{max-width:720px;font-size:16px}
+    .spend-map{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .spend{background:#fff;border:1px solid var(--line);border-radius:24px;padding:22px;min-height:252px}
+    .spend .pct{font-size:36px;font-weight:950;color:var(--c);margin-bottom:10px}
+    .spend h3{font-size:20px}.spend p{font-size:15px}
+    .questions{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .qcard{background:#fff;border:1px solid var(--line);border-radius:24px;padding:22px}
+    .qcard h3{display:flex;align-items:center;gap:10px}
+    .pill{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:12px;background:var(--soft);color:var(--c);font-size:14px}
+    .qcard ul{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:9px}
+    .qcard li{font-size:15px;color:var(--muted);line-height:1.45;padding-left:16px;position:relative}
+    .qcard li:before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--c)}
+    .content-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .content{background:#fff;border:1px solid var(--line);border-radius:24px;padding:22px}
+    .content p{font-size:15px}
+    .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+    .step{position:relative;background:#fff;border:1px solid var(--line);border-radius:22px;padding:20px 16px;min-height:184px}
+    .step:not(:last-child):after{content:"→";position:absolute;right:-18px;top:78px;color:#93aaa5;font-weight:900;font-size:26px;z-index:3}
+    .icon{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:var(--c);color:#fff;font-weight:900;margin-bottom:14px}
+    .step h3{font-size:18px}.step p{font-size:14px}
+    .proof{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .proof-box{background:#fff;border:1px solid var(--line);border-radius:24px;padding:24px}
+    .metric{display:grid;grid-template-columns:164px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid #e7f0ec}
+    .metric:last-child{border-bottom:0}
+    .metric b{font-size:16px;color:var(--ink)}.metric span{color:var(--muted);font-size:15px;line-height:1.45}
+    .source{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .source .content{min-height:170px}
+    .close{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .dark{background:var(--deep);border-color:var(--deep);color:#fff}
+    .dark h2,.dark h3{color:#fff}.dark p{color:#d7ebe6;font-size:18px}
+    .deliver{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .deliver span{padding:12px 14px;border:1px solid #e2eee9;border-radius:14px;background:#fff;color:var(--muted);font-size:15px}
+    @media(max-width:980px){.hero,.proof,.close{grid-template-columns:1fr}.spend-map,.questions,.content-grid,.flow,.source{grid-template-columns:1fr}.step:not(:last-child):after{content:"↓";right:24px;top:auto;bottom:-25px}h1{font-size:40px}.section-head{display:block}.section-head p{margin-top:10px}.page{width:min(100vw - 24px,1260px)}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="hero">
+      <section class="card intro">
+        <div class="eyebrow">雅黛生物科技 GEO 全案</div>
+        <h1>让雅黛进入品牌方“找功效原料”的 AI 候选名单。</h1>
+        <p class="lead">对化妆品原料企业来说，GEO 的价值不是曝光公司名，而是在品牌方、配方师、采购、OEM/ODM 问 AI 找原料方案和供应商时，让雅黛被看见、被信任、被咨询。</p>
+      </section>
+      <section class="card right">
+        <h2>为什么需要布局 GEO？</h2>
+        <div class="decision">
+          <div class="decision-row"><b>1</b><span>客户不是先搜“雅黛”，而是先问“抗衰/美白/修护原料怎么选”。</span></div>
+          <div class="decision-row"><b>2</b><span>AI 如果先推荐竞品或进口原料商，雅黛就会在供应商入围前被截流。</span></div>
+          <div class="decision-row"><b>3</b><span>原料行业成交靠信任，AI 需要看到技术资料、功效证据、合规说明和第三方背书。</span></div>
+        </div>
+        <div class="answer">GEO 的预算价值：让雅黛在 AI 答案里更常进入供应商候选，并把答案导向询盘、索样和商务沟通。</div>
+      </section>
+    </div>
+
+    <section class="card">
+      <div class="section-head">
+        <h2>GEO 投放资源如何分配？</h2>
+        <p>不是泛泛发稿，而是按“能不能带来供应商入围、能不能承接询盘、能不能增强信任”分配预算。</p>
+      </div>
+      <div class="spend-map">
+        <div class="spend" style="--c:var(--rose)"><div class="pct">35%</div><h3>功效方案占位</h3><p>抢抗衰、美白、舒缓、保湿、修护、控油等功效问题，让雅黛进入 AI 原料方案推荐。</p></div>
+        <div class="spend" style="--c:var(--green)"><div class="pct">30%</div><h3>信源与技术资料</h3><p>补官网产品页、技术白皮书、功效数据、合规资料、案例文章，让 AI 有可信内容可引用。</p></div>
+        <div class="spend" style="--c:var(--blue)"><div class="pct">20%</div><h3>供应商入围</h3><p>围绕“国内靠谱原料商”“供应商怎么选”“国产功效原料”做第三方背书和对比内容。</p></div>
+        <div class="spend" style="--c:var(--red)"><div class="pct">15%</div><h3>合规与风险防御</h3><p>提前解释功效宣称、备案、安全性、稳定性、刺激性、宣传边界等风险问题。</p></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <h2>第一批就该监测和优化的问题</h2>
+        <p>这些问题直接影响原料方案选择和供应商入围，是最容易产生询盘价值的 AI 入口。</p>
+      </div>
+      <div class="questions">
+        <div class="qcard" style="--c:var(--rose);--soft:#fdf2fa"><h3><span class="pill">功</span>功效原料方案</h3><ul><li>做抗衰精华，有哪些核心原料方案？</li><li>美白淡斑产品有哪些合规成分推荐？</li><li>敏感肌修护适合哪些活性成分？</li></ul></div>
+        <div class="qcard" style="--c:var(--green);--soft:#ecfdf3"><h3><span class="pill">配</span>配方开发</h3><ul><li>油皮控油产品原料怎么搭配？</li><li>男士护肤品牌如何设计功效配方？</li><li>母婴/敏感肌产品原料选择注意什么？</li></ul></div>
+        <div class="qcard" style="--c:var(--blue);--soft:#edf3ff"><h3><span class="pill">供</span>供应商筛选</h3><ul><li>国内靠谱的化妆品原料供应商有哪些？</li><li>怎么判断原料供应商是否有研发实力？</li><li>国产功效原料供应商怎么选？</li></ul></div>
+        <div class="qcard" style="--c:var(--purple);--soft:#f3efff"><h3><span class="pill">规</span>合规备案</h3><ul><li>化妆品原料功效宣称需要哪些证据？</li><li>新原料备案需要注意什么？</li><li>原料安全性和稳定性资料怎么看？</li></ul></div>
+        <div class="qcard" style="--c:var(--amber);--soft:#fff6e6"><h3><span class="pill">采</span>采购转化</h3><ul><li>采购功效原料时要看哪些指标？</li><li>原料价格、起订量、供货稳定性怎么评估？</li><li>小品牌找原料供应商怎么避免踩坑？</li></ul></div>
+        <div class="qcard" style="--c:var(--red);--soft:#fff1ed"><h3><span class="pill">险</span>风险问题</h3><ul><li>某类功效原料安全吗，会不会刺激皮肤？</li><li>原料功效数据不充分怎么办？</li><li>供应商宣传过度会有什么风险？</li></ul></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <h2>内容卖点怎么打？</h2>
+        <p>不是“写文章”，而是把雅黛的研发、产品、合规、服务能力拆成 AI 能引用、客户能信任的证据。</p>
+      </div>
+      <div class="content-grid">
+        <div class="content"><h3 style="color:var(--rose)">功效方案内容</h3><p>按抗衰、美白、舒缓、修护、保湿、控油输出原料组合、适用剂型、配方思路和应用场景。</p></div>
+        <div class="content"><h3 style="color:var(--green)">技术证据内容</h3><p>输出功效测试、稳定性、安全性、机理说明、实验数据摘要，让 AI 有专业信源可引用。</p></div>
+        <div class="content"><h3 style="color:var(--blue)">供应商背书内容</h3><p>用工厂能力、研发团队、合作案例、展会报道、客户服务流程证明雅黛值得进入供应商池。</p></div>
+        <div class="content"><h3 style="color:var(--purple)">合规解释内容</h3><p>围绕功效宣称、新原料备案、安全评估、标签宣传边界做 FAQ，降低采购疑虑。</p></div>
+        <div class="content"><h3 style="color:var(--amber)">询盘转化内容</h3><p>建立索样、打样、技术咨询、配方建议、商务沟通路径，把 AI 流量导向销售动作。</p></div>
+        <div class="content"><h3 style="color:var(--red)">风险防御内容</h3><p>提前回应刺激性、功效证据不足、宣传过度、供应稳定性等问题，避免 AI 放大不确定性。</p></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <h2>具体怎么执行？</h2>
+        <p>每一笔 GEO 预算都要对应一个明确动作：抢什么问题、补什么信源、导向什么销售结果。</p>
+      </div>
+      <div class="flow">
+        <div class="step" style="--c:var(--rose)"><div class="icon">问</div><h3>问题池</h3><p>按功效、配方、供应商、合规、采购、风险建立问题。</p></div>
+        <div class="step" style="--c:var(--green)"><div class="icon">筛</div><h3>热度筛选</h3><p>结合百度、微信、行业媒体、展会热词和社媒讨论确定优先级。</p></div>
+        <div class="step" style="--c:var(--blue)"><div class="icon">测</div><h3>AI 监测</h3><p>看雅黛是否出现、是否进入供应商候选、竞品是否领先。</p></div>
+        <div class="step" style="--c:var(--purple)"><div class="icon">源</div><h3>信源反推</h3><p>分析 AI 引用官网、媒体、论文、备案、问答、百科哪些内容。</p></div>
+        <div class="step" style="--c:var(--amber)"><div class="icon">投</div><h3>内容投放</h3><p>补技术白皮书、应用方案、第三方背书、合规 FAQ 和索样入口。</p></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <h2>怎么证明钱花得有效？</h2>
+        <p>用可量化指标看雅黛有没有从“没被 AI 认识”变成“进入方案与供应商候选”。</p>
+      </div>
+      <div class="proof">
+        <div class="proof-box">
+          <h3>可见度与入围</h3>
+          <div class="metric"><b>品牌提及率</b><span>功效原料、供应商、配方问题下是否出现雅黛。</span></div>
+          <div class="metric"><b>Top3 候选占比</b><span>雅黛是否进入 AI 推荐供应商或方案的前列。</span></div>
+          <div class="metric"><b>竞品差距</b><span>同类原料商、贸易商、进口原料商是否仍更常被推荐。</span></div>
+          <div class="metric"><b>回答专业度</b><span>AI 是否能说清雅黛的功效、技术、合规和服务能力。</span></div>
+        </div>
+        <div class="proof-box">
+          <h3>投放与转化</h3>
+          <div class="metric"><b>信源覆盖</b><span>AI 是否引用雅黛官网、技术资料、媒体、展会、问答等友好信源。</span></div>
+          <div class="metric"><b>内容缺口</b><span>哪些功效/合规/采购问题仍缺可引用证据。</span></div>
+          <div class="metric"><b>询盘路径</b><span>AI 回答是否能导向索样、技术咨询、商务沟通。</span></div>
+          <div class="metric"><b>月度复盘</b><span>每月更新问题、排名、信源和内容投放建议。</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="close">
+      <div class="card dark">
+        <h2>核心结论</h2>
+        <p>GEO 不是做品牌曝光，而是让雅黛在品牌方找原料方案和供应商时，提前进入 AI 候选名单，并把专业信任转化为询盘机会。</p>
+      </div>
+      <div class="card">
+        <h2>交付物</h2>
+        <div class="deliver">
+          <span>原料行业问题池</span><span>热度筛选表</span><span>AI 可见度监测</span><span>竞品/供应商对比</span><span>信源分析报告</span><span>合规风险预警</span><span>内容投放建议</span><span>月度复盘报告</span>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
